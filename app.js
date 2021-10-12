@@ -56,10 +56,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(fileUpload())
 
 // static
-app.use(express.static(path.join(__dirname, 'build')))
-// app.get('*',(req,res)=>{
-//   res.sendFile(path.join(__dirname,'build/index.html'));
-// })
+
 // cache
 app.use(cache('2 minutes', (req, res) => res.statusCode === 200))
 // router
@@ -110,7 +107,10 @@ fs.readdirSync(path.join(__dirname, 'module'))
         })
     })
   })
-
+app.use(express.static(path.join(__dirname, 'build')))
+app.get('*', (req, res) => {
+  res.sendFile(res.redirect('/'))
+})
 const port = process.env.PORT || 3000
 const host = process.env.HOST || ''
 
