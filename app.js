@@ -108,8 +108,9 @@ fs.readdirSync(path.join(__dirname, 'module'))
     })
   })
 app.use(express.static(path.join(__dirname, 'build')))
-app.get('*', (req, res) => {
-  res.sendFile(res.redirect('/'))
+app.get('/*', (req, res) => {
+  res.type("text/html");
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 const port = process.env.PORT || 3000
 const host = process.env.HOST || ''
